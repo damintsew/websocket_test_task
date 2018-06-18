@@ -11,7 +11,7 @@ class EventProcessor(parser: Parser, clientHandler: ClientHandler) extends Runna
   private val bufferQueue = new PriorityBlockingQueue[Event] //todo rename
   private val lastSentNumber = new AtomicLong
 
-  def submitIncomingData(data: String): Unit = {
+  def submitIncomingPayload(data: String): Unit = {
     val event = parser.parse(data)
 
     bufferQueue.put(event)
@@ -25,7 +25,7 @@ class EventProcessor(parser: Parser, clientHandler: ClientHandler) extends Runna
       //checking that our message is the next
       if (lastSentNumber.compareAndSet(topEvent.sequence - 1, topEvent.sequence)) {
         //send
-        System.out.println(topEvent.toString)
+//        System.out.println(topEvent.toString)
 
           clientHandler.send(topEvent)
       } else {

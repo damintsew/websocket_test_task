@@ -19,18 +19,15 @@ class ClientHandler {
   def addClient(userId: Long, socket: Socket): Unit = {
     userSessionMap(userId) = socket
     repository.save(userId)
-    LOGGER.info("User {} is connected", userId)
+    LOGGER.info("User {} connected", userId)
   }
 
-
   def send(event: Event) = event.eventType match {
-
     case EventType.BROADCAST => sendBroadcast(event)
     case EventType.PRIVATE_MESSAGE => sendPM(event)
     case EventType.FOLLOW => follow(event)
     case EventType.UNFOLLOW => unfollow(event)
     case EventType.STATUS_EVENT => sendUpdate(event)
-    case _ => System.out.println("fuck")
   }
 
   def sendBroadcast(event: Event): Unit = {

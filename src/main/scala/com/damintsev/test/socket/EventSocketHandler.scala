@@ -8,38 +8,22 @@ import com.soundcloud.followermaze.event.Event
 
 import scala.util.{Success, Try}
 
-class EventSocketHandler(port: Int = 9090, eventProcessor: EventProcessor) extends Runnable {
+class EventSocketHandler(port: Int = 9090, eventProcessor: EventProcessor) extends SocketHandler {
 
   override def run() {
     val serverSocket = initSocketPort(port)
-    val socket = serverSocket.accept
-    CloseSocketHook.closeOnExit(socket)
+    val socket = closeOnExit(serverSocket.accept)
 
     val buffer = createBuffer(socket)
 
-    while (true) {
-      //    while(!serverSocket.isClosed) {
-
-
+    while (!serverSocket.isClosed) {
       var payload = buffer.readLine
 
       while (payload != null) {
-//        System.out.println(payload)
-        eventProcessor.submitIncomingData(payload)
+        eventProcessor.submitIncomingPayload(payload)
 
         payload = buffer.readLine
       }
-
     }
-  }
-
-  def createBuffer(socket: Socket): BufferedReader = {
-    new BufferedReader(new InputStreamReader(socket.getInputStream))
-  }
-
-  def initSocketPort(port: Int): ServerSocket = {
-    val serverSocket = new ServerSocket(port)
-    serverSocket.setReuseAddress(true)
-    serverSocket
   }
 }
