@@ -11,5 +11,7 @@ Application has 3 separate threads
  
  In this solution AtomicLong is excessive because this variable uses only one thread but further I think about implementing 
  more than one subscribers thread and query this Queue in multiple threads so we can increase throughput of solution. 
-Also increasing throughput I suggest to create thread pool for CLientHandler to able to send client messages in parallel.    
+Also increasing throughput I suggest to create thread pool for ClientHandler to able to send client messages in parallel.    
  
+ 
+ To run this solution enter: `sbt run com.damintsev.test.EntryPoint`
