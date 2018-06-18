@@ -2,9 +2,9 @@ package com.damintsev.test.processor
 
 import java.net.Socket
 
+import com.damintsev.test.domain.{Event, EventType}
 import com.damintsev.test.repository.UserRepository
-import com.damintsev.test.socket.SocketPaching._
-import com.soundcloud.followermaze.event.{Event, EventType}
+import com.damintsev.test.socket.SocketPatching._
 import org.slf4j.LoggerFactory.getLogger
 
 import scala.collection.mutable.HashMap

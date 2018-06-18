@@ -1,6 +1,7 @@
 package com.damintsev.test.util
 
-import com.soundcloud.followermaze.event.{Event, EventType}
+import com.damintsev.test.domain.Event
+
 
 class Parser {
 

@@ -1,4 +1,4 @@
-package com.damintsev.test
+package com.damintsev.test.domain
 
 import scala.collection.mutable
 import scala.collection.mutable.Set
