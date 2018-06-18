@@ -15,7 +15,7 @@ class ClientSocketHandler(port: Int = 9099, clientHandler: ClientHandler) extend
       val socket = serverSocket.accept()
 
       val buffer = createBuffer(socket)
-      val userId = Integer.parseInt(buffer.readLine())
+      val userId = buffer.readLine().toLong
 
       clientHandler.addClient(userId, socket)
     }

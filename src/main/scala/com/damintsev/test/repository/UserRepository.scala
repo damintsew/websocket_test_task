@@ -1,5 +1,7 @@
-package com.damintsev.test
+package com.damintsev.test.repository
 
+
+import com.damintsev.test.User
 
 import scala.collection.mutable
 

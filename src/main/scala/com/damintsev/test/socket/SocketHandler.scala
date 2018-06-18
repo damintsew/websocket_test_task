@@ -16,23 +16,23 @@ abstract class SocketHandler extends Runnable {
   protected def initSocketPort(port: Int): ServerSocket = {
     val serverSocket = new ServerSocket(port)
     serverSocket.setReuseAddress(true)
+    closeOnExit(serverSocket)
+
     serverSocket
   }
 
-  def closeOnExit(socket: Socket): Socket = {
+  private def closeOnExit(serverSocket: ServerSocket): Unit = {
     Runtime.getRuntime.addShutdownHook(new Thread() {
 
       override def run() {
         try {
-          if (!socket.isClosed) {
-            socket.close()
+          if (!serverSocket.isClosed) {
+            serverSocket.close()
           }
         } catch {
-          case e: IOException => LOGGER.error("error on close socket")
+          case e: IOException => LOGGER.error("error closing ServerSocket")
         }
       }
     })
-
-    socket
   }
 }

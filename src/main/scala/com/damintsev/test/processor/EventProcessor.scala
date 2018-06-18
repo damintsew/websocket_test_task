@@ -25,9 +25,7 @@ class EventProcessor(parser: Parser, clientHandler: ClientHandler) extends Runna
       //checking that our message is the next
       if (lastSentNumber.compareAndSet(topEvent.sequence - 1, topEvent.sequence)) {
         //send
-//        System.out.println(topEvent.toString)
-
-          clientHandler.send(topEvent)
+          clientHandler.submitEvent(topEvent)
       } else {
         bufferQueue.put(topEvent)
       }
